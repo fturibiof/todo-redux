@@ -11,7 +11,7 @@ class App extends Component {
       <Provider store={store}>
         <div>
           <div className="jumbotron py-2 bg-primary text-white">
-            <h1 className="text-center">Todo list</h1>
+            <h1 className="text-center">Todo List</h1>
           </div>
           <div>
             <TodoList />
