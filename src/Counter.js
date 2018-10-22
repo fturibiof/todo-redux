@@ -13,8 +13,9 @@ class Counter extends Component {
     return (
       <div className="my-1">
         <h3>
-          Você tem {this.props.todo.length - this.countDone()} atividades pendentes e {this.countDone()} atividades
-          concluídas
+          Você tem {this.props.todo.length - this.countDone()}{' '}
+          {this.props.todo.length - this.countDone() > 1 ? 'atividades pendentes' : 'atividade pendente'}  e {this.countDone()}{' '}
+          {this.countDone() > 1 ? 'atividades concluídas' : 'atividade concluída'}
         </h3>
       </div>
     );

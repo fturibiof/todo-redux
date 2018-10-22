@@ -1,3 +1,9 @@
+export function getStorage(){
+  return{
+    type:'GET_STORAGE'
+  }
+}
+
 export function addTodo(userInput) {
   // console.log(userInput);
 

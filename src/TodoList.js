@@ -15,6 +15,10 @@ class TodoList extends Component {
     edit: false,
   };
 
+  componentDidMount() {
+    this.props.getStorage();
+  }
+
   handleInput = e => {
     const { name, value } = e.target;
     this.setState({
@@ -25,7 +29,7 @@ class TodoList extends Component {
   addNewTodo = async e => {
     e.preventDefault();
     await this.props.addTodo(this.state.input);
-    // console.log(this.props.todo);
+    localStorage.setItem('activities', JSON.stringify(this.props.todo));
     this.setState({
       input: { id: '', activity: '', time: '' },
     });
@@ -33,11 +37,13 @@ class TodoList extends Component {
 
   handleDone = async id => {
     await this.props.doneTodo(id);
+    localStorage.setItem('activities', JSON.stringify(this.props.todo));
   };
 
   handleDelete = async id => {
     //   console.log(id);
     await this.props.deleteTodo(id);
+    localStorage.setItem('activities', JSON.stringify(this.props.todo));
   };
 
   handleEdit = async id => {
@@ -53,11 +59,11 @@ class TodoList extends Component {
       edit: true,
     });
     // console.log(this.state);
-    
   };
 
   handleEditChange = async e => {
     await this.props.editTodoChange(this.state.input);
+    localStorage.setItem('activities', JSON.stringify(this.props.todo));
     this.setState({
       input: { id: '', activity: '', time: '' },
       edit: false,
@@ -71,7 +77,7 @@ class TodoList extends Component {
           <thead>
             <tr>
               <th>Atividade</th>
-              <th>Horario</th>
+              <th>Horário</th>
               <th>Status</th>
               <th>Ações</th>
             </tr>
@@ -85,8 +91,8 @@ class TodoList extends Component {
             />
           </tbody>
         </table>
-        <input type="text" name="activity" value={this.state.input.activity} onChange={this.handleInput} />
-        <input type="text" name="time" value={this.state.input.time} onChange={this.handleInput} />
+        <input className="mr-3" placeholder="Atividade" type="text" name="activity" value={this.state.input.activity} onChange={this.handleInput} />
+        <input className="mr-3" placeholder="Horário" type="text" name="time" value={this.state.input.time} onChange={this.handleInput} />
         <button
           className="btn btn-primary"
           type="submit"

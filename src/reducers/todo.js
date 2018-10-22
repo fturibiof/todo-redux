@@ -10,6 +10,10 @@
 
 export default function todo(state = [], action) {
   switch (action.type) {
+    case 'GET_STORAGE':
+      const storageList = JSON.parse(localStorage.getItem('activities')) || [];      
+      return storageList;
+
     case 'ADD_TODO':
       return [
         ...state,
@@ -40,7 +44,6 @@ export default function todo(state = [], action) {
         ...item,
         edit: item.id === chosen.id ? true : item.edit,
       }));
-      // console.log(listEditSelect);
       return listEditSelect;
 
     case 'EDIT_TODO_CHANGE':
@@ -51,8 +54,6 @@ export default function todo(state = [], action) {
         time: item.id === action.input.id ? action.input.time : item.time,
         edit: item.id === action.input.id ? false : item.edit,
       }));
-      // console.log(action.input);
-      
       return listEditChange;
 
     default:
