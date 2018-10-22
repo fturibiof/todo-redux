@@ -42,15 +42,18 @@ class TodoList extends Component {
 
   handleEdit = async id => {
     await this.props.editTodoSelect(id);
-    const itemToEdit = await this.props.todo.filter(item => item.edit === true);
-    // console.log(itemToEdit);    
+    const itemToEdit = await this.props.todo.filter(item => item.edit === true)[0];
+    console.log(itemToEdit);
     this.setState({
       input: {
+        id: itemToEdit.id,
         activity: itemToEdit.activity,
         time: itemToEdit.time,
       },
       edit: true,
     });
+    // console.log(this.state);
+    
   };
 
   handleEditChange = async e => {
