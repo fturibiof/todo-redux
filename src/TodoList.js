@@ -8,9 +8,11 @@ import ListItem from './ListItem';
 class TodoList extends Component {
   state = {
     input: {
+      id: '',
       activity: '',
       time: '',
     },
+    edit: false,
   };
 
   handleInput = e => {
@@ -23,22 +25,40 @@ class TodoList extends Component {
   addNewTodo = async e => {
     e.preventDefault();
     await this.props.addTodo(this.state.input);
-    console.log(this.props.todo);
+    // console.log(this.props.todo);
     this.setState({
-      input: { activity: '', time: '' },
+      input: { id: '', activity: '', time: '' },
     });
   };
+
   handleDone = async id => {
     await this.props.doneTodo(id);
-  }
+  };
+
   handleDelete = async id => {
     //   console.log(id);
     await this.props.deleteTodo(id);
-    console.log(this.props.todo);
   };
 
   handleEdit = async id => {
-      await this.props.editTodo(id);
+    await this.props.editTodoSelect(id);
+    const itemToEdit = await this.props.todo.filter(item => item.edit === true);
+    // console.log(itemToEdit);    
+    this.setState({
+      input: {
+        activity: itemToEdit.activity,
+        time: itemToEdit.time,
+      },
+      edit: true,
+    });
+  };
+
+  handleEditChange = async e => {
+    await this.props.editTodoChange(this.state.input);
+    this.setState({
+      input: { id: '', activity: '', time: '' },
+      edit: false,
+    });
   };
 
   render() {
@@ -54,13 +74,22 @@ class TodoList extends Component {
             </tr>
           </thead>
           <tbody>
-            <ListItem item={this.props.todo} onDelete={this.handleDelete} onEdit={this.handleEdit} onDone={this.handleDone}/>
+            <ListItem
+              item={this.props.todo}
+              onDelete={this.handleDelete}
+              onEdit={this.handleEdit}
+              onDone={this.handleDone}
+            />
           </tbody>
         </table>
         <input type="text" name="activity" value={this.state.input.activity} onChange={this.handleInput} />
         <input type="text" name="time" value={this.state.input.time} onChange={this.handleInput} />
-        <button className="btn btn-primary" type="submit" onClick={this.addNewTodo}>
-          {this.props.todo.edit?"Editar":"Enviar"}
+        <button
+          className="btn btn-primary"
+          type="submit"
+          onClick={this.state.edit ? this.handleEditChange : this.addNewTodo}
+        >
+          {this.state.edit ? 'Editar' : 'Enviar'}
         </button>
       </div>
     );

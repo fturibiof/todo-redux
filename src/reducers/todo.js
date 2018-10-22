@@ -5,7 +5,7 @@
 //     time: '',
 //     done: '',
 //   },
-//   edit: false,
+//   // edit: false,
 // };
 
 export default function todo(state = [], action) {
@@ -18,11 +18,11 @@ export default function todo(state = [], action) {
           activity: action.input.activity,
           time: action.input.time,
           done: action.input.done,
+          edit: false,
         },
       ];
     case 'DONE_TODO':
       const selected = state.filter(item => item.id === action.input.id)[0];
-      console.log(selected.id);
       const list = state.map(item => ({
         ...item,
         done: item.id === selected.id ? true : item.done,
@@ -33,10 +33,25 @@ export default function todo(state = [], action) {
       const newList = state.filter(item => item.id !== action.input.id);
       return newList;
 
-    // case 'EDIT_TODO':
-    //   const selected = state.filter(item => item.id === action.input.id);
-    //   console.log(selected);
-    //   return [...state, { edit: true }]; //ele cria outro item sem nada, so com o edit true
+    case 'EDIT_TODO_SELECT':
+      //set edit to true
+      const chosen = state.filter(item => item.id === action.input.id);
+      const listEditSelect = state.map(item => ({
+        ...item,
+        edit: item.id === chosen.id ? true : item.edit,
+      }));
+      console.log(listEditSelect);
+      return listEditSelect;
+
+    case 'EDIT_TODO_CHANGE':
+      //edit activity with edit:true
+      const listEditChange = state.map(item => ({
+        ...item,
+        activity: item.id === action.input.id ? action.input.activity : item.activity,
+        time: item.id === action.input.id ? action.input.time : item.time,
+        edit: item.id === action.input.id ? false : item.edit,
+      }));
+      return listEditChange;
 
     default:
       return state;

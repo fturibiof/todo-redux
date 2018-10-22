@@ -7,6 +7,7 @@ export function addTodo(userInput) {
       activity: userInput.activity,
       time: userInput.time,
       done: false,
+      edit:false,
     },
   };
 }
@@ -25,9 +26,21 @@ export function deleteTodo(ID) {
   };
 }
 
-export function editTodo(ID) {
+export function editTodoSelect(ID) {
   return {
-    type: 'EDIT_TODO',
+    type: 'EDIT_TODO_SELECT',
     input: { id: ID },
   };
+}
+
+export function editTodoChange(userInput){
+  return  { 
+  type: 'EDIT_TODO_CHANGE',
+  input: {
+    id: userInput.id,
+    activity: userInput.activity,
+    time: userInput.time,
+  },
+};
+
 }
