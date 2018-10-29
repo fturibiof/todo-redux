@@ -6,6 +6,7 @@ const ListItem = ({ item, onDelete, onEdit, onDone }) =>
       <tr className={activity.done? "bg-success" :"bg-white"}>
         <td>{activity.activity}</td>
         <td>{activity.time}</td>
+        <td>{activity.place}</td>
         <td>{activity.done ? 'Concluído' : 'Pendente'}</td>
         <td>
           <button className="btn btn-info mr-1" onClick={() => onDone(activity.id)}>

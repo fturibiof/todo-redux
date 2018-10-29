@@ -1,6 +1,7 @@
-export function getStorage(){
+export function getStorage(data){
   return{
-    type:'GET_STORAGE'
+    type:'GET_STORAGE',
+    data:data,
   }
 }
 
@@ -12,6 +13,7 @@ export function addTodo(userInput) {
     input: {
       activity: userInput.activity,
       time: userInput.time,
+      place:userInput.place,
       done: false,
       edit:false,
     },
@@ -46,6 +48,7 @@ export function editTodoChange(userInput){
     id: userInput.id,
     activity: userInput.activity,
     time: userInput.time,
+    place:userInput.place,
   },
 };
 

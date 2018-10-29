@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import TodoList from './TodoList';
 import Counter from './Counter';
+import Users from './Users';
 
 
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
           <div>
             <TodoList />
             <Counter/>
+            {/* <Users/> */}
           </div>
         </div>
       </Provider>
